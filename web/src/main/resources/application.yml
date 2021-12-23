@@ -1,0 +1,15 @@
+# AWS properties
+aws:
+  access-key: AKIASTX6ZLOEGDG5PX5N
+  secret-key: 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
+  region: eu-central-1
+  endpoint: dynamodb.eu-central-1.amazonaws.com
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: aws-cognito-multitenancy
+  main:
+    allow-bean-definition-overriding: true
