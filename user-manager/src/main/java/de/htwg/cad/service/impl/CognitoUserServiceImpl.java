@@ -61,7 +61,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return createUserResult.getUser();
         } catch (com.amazonaws.services.cognitoidp.model.UsernameExistsException e) {
-            throw new UsernameExistsException("User name that already exists");
+            throw new UsernameExistsException("User name already exists.");
         } catch (com.amazonaws.services.cognitoidp.model.InvalidPasswordException e) {
             throw new InvalidPasswordException("Invalid password.");
         }
@@ -122,7 +122,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
             throw new FailedAuthenticationException(String.format("Authenticate failed: %s", e.getErrorMessage()), e);
         } catch (UserNotFoundException e) {
             String username = request.getAuthParameters().get(CognitoAttributesEnum.USERNAME.name());
-            throw new de.htwg.cad.exceptions.UserNotFoundException(String.format("Username %s  not found.", username), e);
+            throw new de.htwg.cad.exceptions.UserNotFoundException(String.format("User name %s not found.", username), e);
         }
     }
 
@@ -155,7 +155,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
             byte[] rawHmac = mac.doFinal(userPoolClientId.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(rawHmac);
         } catch (Exception e) {
-            throw new ServiceException("Error while calculating ");
+            throw new ServiceException("Error while calculating.");
         }
     }
 }

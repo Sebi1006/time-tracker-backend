@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
                     .poolId(tenantMaster.get().getUserPoolId())
                     .build();
         } else {
-            throw new TenantNotFoundException("Tenant Data not found or not activated");
+            throw new TenantNotFoundException("Tenant data not found or not activated.");
         }
     }
 
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public SuccessResponse authenticate(Login userLogin) {
         CognitoCredentials credentials = extractCognitoCredentials();
         AdminInitiateAuthResult result = cognitoUserService.initiateAuth(userLogin.getUsername(), userLogin.getPassword(), credentials)
-                .orElseThrow(() -> new UserNotFoundException(String.format("Username %s  not found.", userLogin.getUsername())));
+                .orElseThrow(() -> new UserNotFoundException(String.format("User name %s not found.", userLogin.getUsername())));
 
         // Password change required on first login
         if (ObjectUtils.nullSafeEquals(NEW_PASSWORD_REQUIRED.name(), result.getChallengeName())) {
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
                     .challengeType(NEW_PASSWORD_REQUIRED.name())
                     .sessionId(result.getSession())
                     .username(userLogin.getUsername())
-                    .build(), "First time login - Password change required");
+                    .build(), "First time login - Password change required.");
         }
 
         return new SuccessResponse(AuthenticatedResponse.builder()
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
                 .idToken(result.getAuthenticationResult().getIdToken())
                 .refreshToken(result.getAuthenticationResult().getRefreshToken())
                 .username(userLogin.getUsername())
-                .build(), "Login successful");
+                .build(), "Login successful.");
     }
 
     /**

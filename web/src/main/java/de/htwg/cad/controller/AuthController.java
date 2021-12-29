@@ -24,7 +24,7 @@ public class AuthController {
     @PostMapping(value = "/sign-up")
     public ResponseEntity<SuccessResponse> signUp(@RequestBody @Validated UserSignUp signUp) {
         UserType result = userService.createUser(signUp);
-        return new ResponseEntity<>(new SuccessResponse(result, "User account created successfully"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SuccessResponse(result, "User account created successfully."), HttpStatus.CREATED);
     }
 
     @PostMapping("/sign-in")
@@ -37,7 +37,7 @@ public class AuthController {
         if (bearerToken != null && bearerToken.contains("Bearer ")) {
             String accessToken = bearerToken.replace("Bearer ", "");
             userService.logout(accessToken);
-            return new ResponseEntity<>(new SuccessResponse(null, "Logout successfully"), HttpStatus.OK);
+            return new ResponseEntity<>(new SuccessResponse(null, "Logged out successfully."), HttpStatus.OK);
         }
 
         throw new FailedAuthenticationException("Invalid password.");
