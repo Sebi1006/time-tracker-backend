@@ -46,6 +46,9 @@ public class CognitoUserServiceImpl implements CognitoUserService {
                             new AttributeType().withName("custom:first_name").withValue(userSignUp.getFirstName()),
                             new AttributeType().withName("custom:last_name").withValue(userSignUp.getLastName()),
                             new AttributeType().withName("custom:sub_model").withValue(userSignUp.getSubModel()),
+                            new AttributeType().withName("custom:phone").withValue(userSignUp.getPhone()),
+                            new AttributeType().withName("custom:entrance_date").withValue(userSignUp.getEntranceDate()),
+                            new AttributeType().withName("custom:avatar_url").withValue(userSignUp.getAvatarUrl()),
                             new AttributeType().withName("email").withValue(userSignUp.getEmail()),
                             new AttributeType().withName("email_verified").withValue("true"));
 

@@ -31,7 +31,17 @@ public class UserSignUp {
     @NotNull
     private String subModel;
 
+    @NotBlank
+    @NotNull
+    private String entranceDate;
+
     @NotNull
     @NotEmpty
     private Set<String> roles;
+
+    @NotNull
+    private String phone;
+
+    @NotNull
+    private String avatarUrl;
 }
