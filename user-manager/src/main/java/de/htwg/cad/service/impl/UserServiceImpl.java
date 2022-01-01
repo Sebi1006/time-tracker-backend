@@ -1,12 +1,14 @@
 package de.htwg.cad.service.impl;
 
 import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthResult;
+import com.amazonaws.services.cognitoidp.model.AdminSetUserPasswordResult;
 import com.amazonaws.services.cognitoidp.model.UserType;
 import de.htwg.cad.TenantContext;
 import de.htwg.cad.domain.TenantMaster;
 import de.htwg.cad.domain.model.CognitoCredentials;
 import de.htwg.cad.domain.request.AuthenticatedChallenge;
 import de.htwg.cad.domain.request.Login;
+import de.htwg.cad.domain.request.UserPasswordUpdate;
 import de.htwg.cad.domain.request.UserSignUp;
 import de.htwg.cad.domain.response.AuthenticatedResponse;
 import de.htwg.cad.domain.response.SuccessResponse;
@@ -92,5 +94,15 @@ public class UserServiceImpl implements UserService {
         CognitoCredentials credentials = extractCognitoCredentials();
 
         return cognitoUserService.signUp(signUp, credentials);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public AdminSetUserPasswordResult updateUserPassword(UserPasswordUpdate userPassword) {
+        CognitoCredentials credentials = extractCognitoCredentials();
+
+        return cognitoUserService.changeUserPassword(userPassword.getUsername(), userPassword.getPassword(), credentials.getPoolId());
     }
 }

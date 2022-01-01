@@ -1,8 +1,6 @@
 package de.htwg.cad.service;
 
-import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthResult;
-import com.amazonaws.services.cognitoidp.model.GlobalSignOutResult;
-import com.amazonaws.services.cognitoidp.model.UserType;
+import com.amazonaws.services.cognitoidp.model.*;
 import de.htwg.cad.domain.model.CognitoCredentials;
 import de.htwg.cad.domain.request.UserSignUp;
 
@@ -17,6 +15,14 @@ public interface CognitoUserService {
      * @return Optional<AdminInitiateAuthResult>
      */
     Optional<AdminInitiateAuthResult> initiateAuth(String username, String password, CognitoCredentials credentials);
+
+    /**
+     * @param username    user name
+     * @param newPassword new user password
+     * @param poolId      user pool id
+     * @return AdminSetUserPasswordResult
+     */
+    AdminSetUserPasswordResult changeUserPassword(String username, String newPassword, String poolId);
 
     /**
      * Add a group to user

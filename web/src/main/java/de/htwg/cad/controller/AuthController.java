@@ -1,7 +1,9 @@
 package de.htwg.cad.controller;
 
+import com.amazonaws.services.cognitoidp.model.AdminSetUserPasswordResult;
 import com.amazonaws.services.cognitoidp.model.UserType;
 import de.htwg.cad.domain.request.Login;
+import de.htwg.cad.domain.request.UserPasswordUpdate;
 import de.htwg.cad.domain.request.UserSignUp;
 import de.htwg.cad.domain.response.SuccessResponse;
 import de.htwg.cad.exceptions.FailedAuthenticationException;
@@ -41,5 +43,11 @@ public class AuthController {
         }
 
         throw new FailedAuthenticationException("Invalid password.");
+    }
+
+    @PutMapping("/change-password")
+    public ResponseEntity<SuccessResponse> changePassword(@RequestBody @Validated UserPasswordUpdate userPasswordUpdate) {
+        AdminSetUserPasswordResult result = userService.updateUserPassword(userPasswordUpdate);
+        return new ResponseEntity<>(new SuccessResponse(result, "Updated successfully."), HttpStatus.OK);
     }
 }

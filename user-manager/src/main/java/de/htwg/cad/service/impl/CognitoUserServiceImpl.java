@@ -118,6 +118,14 @@ public class CognitoUserServiceImpl implements CognitoUserService {
         return adminInitiateAuthResult(authRequest);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public AdminSetUserPasswordResult changeUserPassword(String username, String newPassword, String poolId) {
+        return setUserPassword(username, newPassword, poolId);
+    }
+
     private Optional<AdminInitiateAuthResult> adminInitiateAuthResult(AdminInitiateAuthRequest request) {
         try {
             return Optional.of(awsCognitoIdentityProvider.adminInitiateAuth(request));

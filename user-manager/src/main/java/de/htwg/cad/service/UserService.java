@@ -1,7 +1,9 @@
 package de.htwg.cad.service;
 
+import com.amazonaws.services.cognitoidp.model.AdminSetUserPasswordResult;
 import com.amazonaws.services.cognitoidp.model.UserType;
 import de.htwg.cad.domain.request.Login;
+import de.htwg.cad.domain.request.UserPasswordUpdate;
 import de.htwg.cad.domain.request.UserSignUp;
 import de.htwg.cad.domain.response.SuccessResponse;
 
@@ -26,4 +28,10 @@ public interface UserService {
      * @return UserType
      */
     UserType createUser(UserSignUp signUp);
+
+    /**
+     * @param userPasswordUpdate user password request
+     * @return AdminSetUserPasswordResult
+     */
+    AdminSetUserPasswordResult updateUserPassword(UserPasswordUpdate userPasswordUpdate);
 }
