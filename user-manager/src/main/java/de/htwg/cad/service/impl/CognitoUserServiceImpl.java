@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -124,6 +121,22 @@ public class CognitoUserServiceImpl implements CognitoUserService {
     @Override
     public AdminSetUserPasswordResult changeUserPassword(String username, String newPassword, String poolId) {
         return setUserPassword(username, newPassword, poolId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UpdateUserAttributesResult updateUserAttributes(String token, Collection<AttributeType> attributes) {
+        try {
+            UpdateUserAttributesRequest updateUserAttributesRequest = new UpdateUserAttributesRequest()
+                    .withAccessToken(token)
+                    .withUserAttributes(attributes);
+
+            return awsCognitoIdentityProvider.updateUserAttributes(updateUserAttributesRequest);
+        } catch (NotAuthorizedException e) {
+            throw new NotAuthorizedException("User is not authenticated: " + e.getErrorMessage());
+        }
     }
 
     private Optional<AdminInitiateAuthResult> adminInitiateAuthResult(AdminInitiateAuthRequest request) {

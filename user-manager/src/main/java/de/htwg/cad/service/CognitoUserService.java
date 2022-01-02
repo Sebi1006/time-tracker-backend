@@ -4,6 +4,7 @@ import com.amazonaws.services.cognitoidp.model.*;
 import de.htwg.cad.domain.model.CognitoCredentials;
 import de.htwg.cad.domain.request.UserSignUp;
 
+import java.util.Collection;
 import java.util.Optional;
 
 public interface CognitoUserService {
@@ -23,6 +24,13 @@ public interface CognitoUserService {
      * @return AdminSetUserPasswordResult
      */
     AdminSetUserPasswordResult changeUserPassword(String username, String newPassword, String poolId);
+
+    /**
+     * @param token      access token
+     * @param attributes updated user attributes
+     * @return UpdateUserAttributesResult
+     */
+    UpdateUserAttributesResult updateUserAttributes(String token, Collection<AttributeType> attributes);
 
     /**
      * Add a group to user

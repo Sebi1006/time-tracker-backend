@@ -1,8 +1,10 @@
 package de.htwg.cad.controller;
 
 import com.amazonaws.services.cognitoidp.model.AdminSetUserPasswordResult;
+import com.amazonaws.services.cognitoidp.model.UpdateUserAttributesResult;
 import com.amazonaws.services.cognitoidp.model.UserType;
 import de.htwg.cad.domain.request.Login;
+import de.htwg.cad.domain.request.UserAttributesUpdate;
 import de.htwg.cad.domain.request.UserPasswordUpdate;
 import de.htwg.cad.domain.request.UserSignUp;
 import de.htwg.cad.domain.response.SuccessResponse;
@@ -48,6 +50,12 @@ public class AuthController {
     @PutMapping("/change-password")
     public ResponseEntity<SuccessResponse> changePassword(@RequestBody @Validated UserPasswordUpdate userPasswordUpdate) {
         AdminSetUserPasswordResult result = userService.updateUserPassword(userPasswordUpdate);
+        return new ResponseEntity<>(new SuccessResponse(result, "Updated successfully."), HttpStatus.OK);
+    }
+
+    @PutMapping("/update-attributes")
+    public ResponseEntity<SuccessResponse> updateAttributes(@RequestBody @Validated UserAttributesUpdate userAttributesUpdate) {
+        UpdateUserAttributesResult result = userService.updateUserAttributes(userAttributesUpdate);
         return new ResponseEntity<>(new SuccessResponse(result, "Updated successfully."), HttpStatus.OK);
     }
 }
