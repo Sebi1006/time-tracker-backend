@@ -24,7 +24,7 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>1.8</java.version>
         <apache.commons.version>3.12.0</apache.commons.version>
         <apache.commons-collections4.version>4.4</apache.commons-collections4.version>
         <aws.java.sdk.dynamodb.version>1.12.85</aws.java.sdk.dynamodb.version>
