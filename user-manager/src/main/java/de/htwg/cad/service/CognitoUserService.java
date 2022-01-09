@@ -5,6 +5,7 @@ import de.htwg.cad.domain.model.CognitoCredentials;
 import de.htwg.cad.domain.request.UserSignUp;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface CognitoUserService {
@@ -56,4 +57,10 @@ public interface CognitoUserService {
      * @return GlobalSignOutResult
      */
     GlobalSignOutResult signOut(String accessToken);
+
+    /**
+     * @param poolId user pool id
+     * @return List<UserType>
+     */
+    List<UserType> getAllUsers(String poolId);
 }
