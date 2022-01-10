@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 import static com.amazonaws.services.cognitoidp.model.ChallengeNameType.NEW_PASSWORD_REQUIRED;
@@ -110,5 +111,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UpdateUserAttributesResult updateUserAttributes(UserAttributesUpdate userAttributesUpdate) {
         return cognitoUserService.updateUserAttributes(userAttributesUpdate.getToken(), userAttributesUpdate.getAttributes());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UserType> getAllUsers() {
+        CognitoCredentials credentials = extractCognitoCredentials();
+
+        return cognitoUserService.getAllUsers(credentials.getPoolId());
     }
 }

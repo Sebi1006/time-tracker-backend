@@ -5,7 +5,7 @@ import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-@EnableScan //annotation enables the scan operations
-@Repository //spring annotation
+@EnableScan
+@Repository
 public interface TenantMasterRepository extends PagingAndSortingRepository<TenantMaster, String> {
 }

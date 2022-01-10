@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Validated
 @RequestMapping("/auth")
@@ -57,5 +59,10 @@ public class AuthController {
     public ResponseEntity<SuccessResponse> updateAttributes(@RequestBody @Validated UserAttributesUpdate userAttributesUpdate) {
         UpdateUserAttributesResult result = userService.updateUserAttributes(userAttributesUpdate);
         return new ResponseEntity<>(new SuccessResponse(result, "Updated successfully."), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-users")
+    public List<UserType> getAllUsers() {
+        return userService.getAllUsers();
     }
 }

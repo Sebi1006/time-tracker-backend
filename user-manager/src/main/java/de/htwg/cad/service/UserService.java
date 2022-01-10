@@ -10,6 +10,7 @@ import de.htwg.cad.domain.request.UserSignUp;
 import de.htwg.cad.domain.response.SuccessResponse;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public interface UserService {
     /**
@@ -42,4 +43,9 @@ public interface UserService {
      * @return UpdateUserAttributesResult
      */
     UpdateUserAttributesResult updateUserAttributes(UserAttributesUpdate userAttributesUpdate);
+
+    /**
+     * @return List<UserType>
+     */
+    List<UserType> getAllUsers();
 }

@@ -139,6 +139,19 @@ public class CognitoUserServiceImpl implements CognitoUserService {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UserType> getAllUsers(String poolId) {
+        ListUsersRequest request = new ListUsersRequest();
+        request.withUserPoolId(poolId);
+
+        ListUsersResult result = awsCognitoIdentityProvider.listUsers(request);
+
+        return result.getUsers();
+    }
+
     private Optional<AdminInitiateAuthResult> adminInitiateAuthResult(AdminInitiateAuthRequest request) {
         try {
             return Optional.of(awsCognitoIdentityProvider.adminInitiateAuth(request));
