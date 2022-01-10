@@ -65,4 +65,9 @@ public class AuthController {
     public List<UserType> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @GetMapping("/get-organization")
+    public String getOrganization() {
+        return userService.getOrganizationName();
+    }
 }

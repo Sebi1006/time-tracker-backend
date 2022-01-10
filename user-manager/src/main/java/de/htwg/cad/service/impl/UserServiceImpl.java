@@ -122,4 +122,18 @@ public class UserServiceImpl implements UserService {
 
         return cognitoUserService.getAllUsers(credentials.getPoolId());
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getOrganizationName() {
+        Optional<TenantMaster> tenantMaster = tenantMasterService.getTenantById(TenantContext.getTenantId());
+
+        if (tenantMaster.isPresent()) {
+            return tenantMaster.get().getOrganizationName();
+        } else {
+            throw new TenantNotFoundException("Tenant data not found or not activated.");
+        }
+    }
 }

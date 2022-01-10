@@ -48,4 +48,9 @@ public interface UserService {
      * @return List<UserType>
      */
     List<UserType> getAllUsers();
+
+    /**
+     * @return String
+     */
+    String getOrganizationName();
 }
