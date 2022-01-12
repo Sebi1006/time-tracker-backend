@@ -30,8 +30,8 @@ public class UserWorkController {
         return userWorkService.create(userWork);
     }
 
-    @PutMapping(value = "/{id}")
-    public UserWork update(@PathVariable("id") String id, @RequestBody UserWork userWork) {
-        return userWorkService.update(userWork, id);
+    @PutMapping()
+    public UserWork update(@RequestBody UserWork userWork) {
+        return userWorkService.update(userWork);
     }
 }

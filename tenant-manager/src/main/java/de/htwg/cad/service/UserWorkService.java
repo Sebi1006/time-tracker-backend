@@ -11,5 +11,5 @@ public interface UserWorkService {
 
     List<UserWork> getAll();
 
-    UserWork update(UserWork userWork, String id);
+    UserWork update(UserWork userWork);
 }

@@ -9,7 +9,7 @@ import lombok.*;
 public class CreditCardInformation {
     String nameOnCard;
 
-    int cardNumber;
+    String cardNumber;
 
     String expirationDate;
 

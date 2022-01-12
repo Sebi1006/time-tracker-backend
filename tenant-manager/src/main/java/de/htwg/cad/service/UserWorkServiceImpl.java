@@ -67,10 +67,15 @@ public class UserWorkServiceImpl implements UserWorkService {
     }
 
     @Override
-    public UserWork update(UserWork userWork, String id) {
-        UserWork updatedUserWork = dynamoDBMapper().load(UserWork.class, id, dynamoDBMapperConfig());
-        updatedUserWork.setWorks(userWork.getWorks());
-        dynamoDBMapper().save(updatedUserWork, dynamoDBMapperConfig());
-        return updatedUserWork;
+    public UserWork update(UserWork userWork) {
+        UserWork updatedUserWork = dynamoDBMapper().load(UserWork.class, userWork.getId(), dynamoDBMapperConfig());
+
+        if (updatedUserWork != null) {
+            updatedUserWork.setWorks(userWork.getWorks());
+            dynamoDBMapper().save(updatedUserWork, dynamoDBMapperConfig());
+            return updatedUserWork;
+        } else {
+            return create(userWork);
+        }
     }
 }
