@@ -46,8 +46,13 @@ public class FileService {
     public void save(MultipartFile multipartFile, String fileName) {
         try {
             final File file = convertMultiPartFileToFile(multipartFile);
-            LOG.info("Uploading file with name: {}", fileName);
-            final PutObjectRequest putObjectRequest = new PutObjectRequest(TenantContext.getTenantId() + "-s3-bucket", fileName, file);
+            String extension = "";
+            int i = file.getName().lastIndexOf('.');
+            if (i > 0) {
+                extension = "." + file.getName().substring(i + 1);
+            }
+            LOG.info("Uploading file with name: {}", fileName + extension);
+            final PutObjectRequest putObjectRequest = new PutObjectRequest(TenantContext.getTenantId() + "-s3-bucket", fileName + extension, file);
             amazonS3.putObject(putObjectRequest);
             Files.delete(file.toPath());
         } catch (AmazonServiceException e) {
