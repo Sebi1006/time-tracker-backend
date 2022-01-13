@@ -1,0 +1,20 @@
+variables:
+  DOCKER_REGISTRY: 179849223048.dkr.ecr.eu-central-1.amazonaws.com
+  AWS_DEFAULT_REGION: eu-central-1
+  APP_NAME: time-tracker-backend
+  DOCKER_HOST: tcp://docker:2375
+
+publish:
+  image:
+    name: amazon/aws-cli
+    entrypoint: [ "" ]
+  services:
+    - docker:dind
+  before_script:
+    - amazon-linux-extras install docker
+    - aws --version
+    - docker --version
+  script:
+    - docker build -t $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID .
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - docker push $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID
