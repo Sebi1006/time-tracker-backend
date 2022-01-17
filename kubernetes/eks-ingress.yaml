@@ -1,5 +1,6 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
+
 metadata:
   name: time-tracker-backend-ingress
   namespace: default
@@ -8,6 +9,7 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
   labels:
     app: time-tracker-backend-ingress
+
 spec:
   rules:
     - http:
