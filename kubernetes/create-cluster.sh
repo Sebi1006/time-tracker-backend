@@ -22,7 +22,7 @@ kubectl apply -f rbac-role-alb-ingress-controller.yaml
 
 #aws iam attach-role-policy --role-name eks-alb-ingress-controller --policy-arn=arn:aws:iam::179849223048:policy/ALBIngressControllerIAMPolicy
 
-#kubectl annotate serviceaccount -n kube-system alb-ingress-controller eks.amazonaws.com/role-arn=arn:aws:iam::179849223048:role/eks-alb-ingress-controller --overwrite
+kubectl annotate serviceaccount -n kube-system alb-ingress-controller eks.amazonaws.com/role-arn=arn:aws:iam::179849223048:role/eks-alb-ingress-controller --overwrite
 
 kubectl apply -f eks-alb-ingress-controller.yaml
 
