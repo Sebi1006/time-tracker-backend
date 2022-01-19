@@ -25,11 +25,12 @@ APP_SECRET_ID=${APP_SECRET_ID%'"'}
 
 item=$(jo id=$(jo S=time-tracker-free) appSecretId=$(jo S=$APP_SECRET_ID) appClientId=$(jo S=$APP_CLIENT_ID) userPoolId=$(jo S=$USER_POOL_ID) organizationName=$(jo S=Free Version) | jq '.' > item.json)
 
-echo "User Pool ID: " $USER_POOL_ID
-echo "App Client ID: " $APP_CLIENT_ID
-echo "App Secret ID: " $APP_SECRET_ID
-echo $item
-
 aws dynamodb put-item --table-name tenant_master --item file://item.json
 
-aws amplify create-app --name time-tracker-free-frontend --repository https://gitlab.com/t5172/frontend --access-token glpat-aLT1jKyTeLTJNh3deCpG --iam-service-role-arn arn:aws:iam::179849223048:role/amplifyconsole-backend-role --build-spec amplify.yml --environment-variables NEXT_PUBLIC_TENANT=time-tracker-free
+APPLICATION_ID="$(aws amplify create-app --name time-tracker-free-frontend --repository https://gitlab.com/t5172/frontend --access-token glpat-aLT1jKyTeLTJNh3deCpG --iam-service-role-arn arn:aws:iam::179849223048:role/amplifyconsole-backend-role --build-spec amplify.yml --environment-variables NEXT_PUBLIC_TENANT=time-tracker-free  --enable-branch-auto-build --no-enable-auto-branch-creation | jq '.app .appId')"
+APPLICATION_ID=${APPLICATION_ID#'"'}
+APPLICATION_ID=${APPLICATION_ID%'"'}
+aws amplify create-branch --branch-name main --app-id $APPLICATION_ID
+
+aws amplify start-job --branch-name main --job-type RELEASE --app-id $APPLICATION_ID
+
