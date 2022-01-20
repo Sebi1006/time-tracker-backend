@@ -3,10 +3,7 @@ package de.htwg.cad.controller;
 import com.amazonaws.services.cognitoidp.model.AdminSetUserPasswordResult;
 import com.amazonaws.services.cognitoidp.model.UpdateUserAttributesResult;
 import com.amazonaws.services.cognitoidp.model.UserType;
-import de.htwg.cad.domain.request.Login;
-import de.htwg.cad.domain.request.UserAttributesUpdate;
-import de.htwg.cad.domain.request.UserPasswordUpdate;
-import de.htwg.cad.domain.request.UserSignUp;
+import de.htwg.cad.domain.request.*;
 import de.htwg.cad.domain.response.SuccessResponse;
 import de.htwg.cad.exceptions.FailedAuthenticationException;
 import de.htwg.cad.service.UserService;
@@ -31,6 +28,12 @@ public class AuthController {
     public ResponseEntity<SuccessResponse> signUp(@RequestBody @Validated UserSignUp signUp) {
         UserType result = userService.createUser(signUp);
         return new ResponseEntity<>(new SuccessResponse(result, "User account created successfully."), HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/register-premium")
+    public ResponseEntity<SuccessResponse> registerPremium(@RequestBody @Validated RegisterPremium registerPremium) {
+        String result = userService.registerPremium(registerPremium);
+        return new ResponseEntity<>(new SuccessResponse(result, "Tenant instance created successfully."), HttpStatus.CREATED);
     }
 
     @PostMapping("/sign-in")
