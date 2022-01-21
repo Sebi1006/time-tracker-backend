@@ -36,6 +36,12 @@ public class AuthController {
         return new ResponseEntity<>(new SuccessResponse(result, "Tenant instance created successfully."), HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "/register-enterprise")
+    public ResponseEntity<SuccessResponse> registerEnterprise(@RequestBody @Validated RegisterEnterprise registerEnterprise) {
+        String result = userService.registerEnterprise(registerEnterprise);
+        return new ResponseEntity<>(new SuccessResponse(result, "Tenant instance created successfully."), HttpStatus.CREATED);
+    }
+
     @PostMapping("/sign-in")
     public ResponseEntity<SuccessResponse> login(@RequestBody @Validated Login loginRequest) {
         return new ResponseEntity<>(userService.authenticate(loginRequest), HttpStatus.OK);

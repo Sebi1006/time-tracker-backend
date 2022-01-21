@@ -144,4 +144,12 @@ public class UserServiceImpl implements UserService {
     public String registerPremium(RegisterPremium registerPremium) {
         return cognitoUserService.registerPremium(registerPremium);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String registerEnterprise(RegisterEnterprise registerEnterprise) {
+        return cognitoUserService.registerEnterprise(registerEnterprise);
+    }
 }

@@ -2,6 +2,7 @@ package de.htwg.cad.service;
 
 import com.amazonaws.services.cognitoidp.model.*;
 import de.htwg.cad.domain.model.CognitoCredentials;
+import de.htwg.cad.domain.request.RegisterEnterprise;
 import de.htwg.cad.domain.request.RegisterPremium;
 import de.htwg.cad.domain.request.UserSignUp;
 
@@ -52,12 +53,20 @@ public interface CognitoUserService {
     UserType signUp(UserSignUp signUp, CognitoCredentials credentials);
 
     /**
-     * Creates a new tenant instance.
+     * Creates a new premium tenant instance.
      *
      * @param registerPremium user and tenant info
      * @return String
      */
     String registerPremium(RegisterPremium registerPremium);
+
+    /**
+     * Creates a new enterprise tenant instance.
+     *
+     * @param registerEnterprise user and tenant info
+     * @return String
+     */
+    String registerEnterprise(RegisterEnterprise registerEnterprise);
 
     /**
      * Signs out users from all devices.

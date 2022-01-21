@@ -56,4 +56,10 @@ public interface UserService {
      * @return String
      */
     String registerPremium(RegisterPremium registerPremium);
+
+    /**
+     * @param registerEnterprise user and tenant info
+     * @return String
+     */
+    String registerEnterprise(RegisterEnterprise registerEnterprise);
 }
