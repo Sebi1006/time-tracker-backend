@@ -316,11 +316,9 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return "https://main." + domain;
         } catch (CognitoIdentityProviderException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            return "Instance creation failed! Please contact our customer service to resolve the issue.";
+            return e.awsErrorDetails().errorMessage();
         } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-            return "Instance creation failed! Please contact our customer service to resolve the issue.";
+            return e.getMessage();
         }
     }
 
@@ -551,11 +549,9 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return "https://main." + domain;
         } catch (CognitoIdentityProviderException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            return "Instance creation failed! Please contact our customer service to resolve the issue.";
+            return e.awsErrorDetails().errorMessage();
         } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-            return "Instance creation failed! Please contact our customer service to resolve the issue.";
+            return e.getMessage();
         }
     }
 

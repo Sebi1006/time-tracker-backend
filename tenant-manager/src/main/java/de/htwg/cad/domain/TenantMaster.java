@@ -1,7 +1,6 @@
 package de.htwg.cad.domain;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-import de.htwg.cad.domain.request.CreditCardInformation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +28,8 @@ public class TenantMaster {
     @DynamoDBAttribute
     private String organizationName;
 
-    @DynamoDBTypeConvertedJson
+    @DynamoDBTypeConverted(converter = CreditCardInformationConverter.class)
+    @DynamoDBAttribute
     private CreditCardInformation creditCardInformation;
 
     @DynamoDBAttribute

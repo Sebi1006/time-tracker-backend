@@ -23,7 +23,6 @@ public class RegisterEnterprise {
     @NotNull
     private String organizationName;
 
-    @NotBlank
     @NotNull
     private int numberOfUsers;
 
