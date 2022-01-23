@@ -1,0 +1,17 @@
+{
+  "id": {
+    "S": "time-tracker-free"
+  },
+  "appSecretId": {
+    "S": "1enr0o4jc8mv8ep1ndcotu08s4rlqe5ccakesgp3tvr09b2jvvfp"
+  },
+  "appClientId": {
+    "S": "2ojnh26k7n1d8pf6g58p3eks0t"
+  },
+  "userPoolId": {
+    "S": "eu-central-1_KGRStrZyt"
+  },
+  "organizationName": {
+    "S": "Free"
+  }
+}

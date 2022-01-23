@@ -23,7 +23,7 @@ APP_SECRET_ID=$(jq '.ClientSecret' UserPoolClient.json)
 APP_SECRET_ID=${APP_SECRET_ID#'"'}
 APP_SECRET_ID=${APP_SECRET_ID%'"'}
 
-item=$(jo id=$(jo S=time-tracker-free) appSecretId=$(jo S=$APP_SECRET_ID) appClientId=$(jo S=$APP_CLIENT_ID) userPoolId=$(jo S=$USER_POOL_ID) organizationName=$(jo S=Free Version) | jq '.' > item.json)
+item=$(jo id=$(jo S=time-tracker-free) appSecretId=$(jo S=$APP_SECRET_ID) appClientId=$(jo S=$APP_CLIENT_ID) userPoolId=$(jo S=$USER_POOL_ID) organizationName=$(jo S=Free-Version) | jq '.' > item.json)
 
 aws dynamodb put-item --table-name tenant_master --item file://item.json
 
