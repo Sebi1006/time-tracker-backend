@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: back-end
-          image: 179849223048.dkr.ecr.eu-central-1.amazonaws.com/time-tracker-backend:1
+          image: 179849223048.dkr.ecr.eu-central-1.amazonaws.com/time-tracker-backend:12
           ports:
             - containerPort: 8080

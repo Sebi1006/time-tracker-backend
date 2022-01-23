@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+APP_ID="$(APPLICATION_ID=${APPLICATION_ID#'"'}
+APPLICATION_ID=${APPLICATION_ID%'"'}aws amplify create-app --name time-tracker-free-frontend-2 --repository https://gitlab.com/t5172/frontend --access-token glpat-aLT1jKyTeLTJNh3deCpG --build-spec amplify.yml --iam-service-role-arn arn:aws:iam::179849223048:role/amplifyconsole-backend-role --environment-variables NEXT_PUBLIC_TENANT=time-tracker-free --enable-branch-auto-build --no-enable-auto-branch-creation  | jq '.app .appId')"
+

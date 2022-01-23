@@ -6,19 +6,19 @@ metadata:
   region: eu-central-1
 
 vpc:
-  id: vpc-022b81c5a4eff064f
+  id: vpc-043e3b28a9e44bea6
   cidr: 192.168.0.0/16
   subnets:
     public:
       eu-central-1a:
-        id: subnet-0fda8b4e27a568c30
+        id: subnet-0a8cda0417432be43
       eu-central-1b:
-        id: subnet-03e8ae507b1b4b456
+        id: subnet-01bbb51887248043b
     private:
       eu-central-1a:
-        id: subnet-0680d69f272d3f20a
+        id: subnet-07a938dfda0d9bdef
       eu-central-1b:
-        id: subnet-0456d3c7546f5dc01
+        id: subnet-0ae764e94a7acf1c4
 
 nodeGroups:
   - name: EKS-public-workers
