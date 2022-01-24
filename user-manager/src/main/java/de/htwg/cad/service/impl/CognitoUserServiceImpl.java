@@ -252,6 +252,13 @@ public class CognitoUserServiceImpl implements CognitoUserService {
             userWorkTable.waitForActive();
             log.info("Created user-work table successfully. Table status: {}", userWorkTable.getDescription().getTableStatus());
 
+            Table projectHoursTable = dynamoDB.createTable(tenantName + "-project-hours",
+                    Arrays.asList(new KeySchemaElement("id", KeyType.HASH)),
+                    Arrays.asList(new AttributeDefinition("id", ScalarAttributeType.S)),
+                    new ProvisionedThroughput(10L, 10L));
+            projectHoursTable.waitForActive();
+            log.info("Created project-hours table successfully. Table status: {}", projectHoursTable.getDescription().getTableStatus());
+
             AmazonS3 s3 = AmazonS3ClientBuilder.standard()
                     .withCredentials(provider)
                     .withRegion(Regions.EU_CENTRAL_1)
@@ -484,6 +491,13 @@ public class CognitoUserServiceImpl implements CognitoUserService {
                     new ProvisionedThroughput(10L, 10L));
             userWorkTable.waitForActive();
             log.info("Created user-work table successfully. Table status: {}", userWorkTable.getDescription().getTableStatus());
+
+            Table projectHoursTable = dynamoDB.createTable(tenantName + "-project-hours",
+                    Arrays.asList(new KeySchemaElement("id", KeyType.HASH)),
+                    Arrays.asList(new AttributeDefinition("id", ScalarAttributeType.S)),
+                    new ProvisionedThroughput(10L, 10L));
+            projectHoursTable.waitForActive();
+            log.info("Created project-hours table successfully. Table status: {}", projectHoursTable.getDescription().getTableStatus());
 
             AmazonS3 s3 = AmazonS3ClientBuilder.standard()
                     .withCredentials(provider)
