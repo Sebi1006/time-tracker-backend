@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-echo "Step1: Create Cluster"
-#eksctl create cluster -f cluster.yaml
+echo "Step 1: Create Cluster"
+eksctl create cluster -f cluster.yaml
 
-echo "Step2: Deployment"
+echo "Step 2: Deployment"
 kubectl apply -f eks-deployment.yaml
 
-echo "Step3: Service"
+echo "Step 3: Service"
 kubectl apply -f eks-service.yaml
 
 GROUP_ID="$(aws ec2 describe-security-groups --filters Name=vpc-id,Values='vpc-043e3b28a9e44bea6' Name=group-name,Values='eksctl-time-tracker-backend-cluster-nodegroup-EKS-public-workers-SG-*' --query 'SecurityGroups[*].{GroupName:GroupName,GroupId:GroupId}' | jq '.[].GroupId')"
@@ -17,20 +17,20 @@ aws ec2 authorize-security-group-ingress --group-id $GROUP_ID --protocol tcp --p
 
 #aws iam create-policy --policy-name ALBIngressControllerIAMPolicy --policy-document file://iam-policy.json
 
-echo "Step4: rbac role for alb ingress controller"
+echo "Step 4: RBAC Role"
 kubectl apply -f rbac-role-alb-ingress-controller.yaml
 
-#eksctl utils associate-iam-oidc-provider --region eu-central-1 --cluster time-tracker-backend-cluster --approve
+eksctl utils associate-iam-oidc-provider --region eu-central-1 --cluster time-tracker-backend-cluster --approve
 
-#aws iam create-role --role-name eks-alb-ingress-controller --assume-role-policy-document file://eks-ingress-trust-iam-policy.json
+aws iam create-role --role-name eks-alb-ingress-controller --assume-role-policy-document file://eks-ingress-trust-iam-policy.json
 
-#aws iam attach-role-policy --role-name eks-alb-ingress-controller --policy-arn=arn:aws:iam::179849223048:policy/ALBIngressControllerIAMPolicy
+aws iam attach-role-policy --role-name eks-alb-ingress-controller --policy-arn=arn:aws:iam::179849223048:policy/ALBIngressControllerIAMPolicy
 
-echo "Step5: Annotate Service Account"
+echo "Step 5: Annotate Service Account"
 kubectl annotate serviceaccount -n kube-system alb-ingress-controller eks.amazonaws.com/role-arn=arn:aws:iam::179849223048:role/eks-alb-ingress-controller --overwrite
 
-echo "Step6: alb ingress controller"
+echo "Step 6: Alb Ingress Controller"
 kubectl apply -f eks-alb-ingress-controller.yaml
 
-echo "Step7: ingress"
+echo "Step 7: Ingress"
 kubectl apply -f eks-ingress.yaml
