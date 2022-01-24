@@ -3,13 +3,19 @@
 echo "Step 1: Create Cluster"
 eksctl create cluster -f cluster.yaml
 
-echo "Step 2: Deployment"
+echo "Step 2a: Backend Deployment"
 kubectl apply -f eks-deployment.yaml
 
-echo "Step 3: Service"
+echo "Step 3a: Backend Service"
 kubectl apply -f eks-service.yaml
 
-GROUP_ID="$(aws ec2 describe-security-groups --filters Name=vpc-id,Values='vpc-043e3b28a9e44bea6' Name=group-name,Values='eksctl-time-tracker-backend-cluster-nodegroup-EKS-public-workers-SG-*' --query 'SecurityGroups[*].{GroupName:GroupName,GroupId:GroupId}' | jq '.[].GroupId')"
+echo "Step 2b: Microservice Deployment"
+kubectl apply -f eks-deployment-ms.yaml
+
+echo "Step 3b: Microservice Service"
+kubectl apply -f eks-service-ms.yaml
+
+GROUP_ID="$(aws ec2 describe-security-groups --filters Name=vpc-id,Values='vpc-0f02b2b3ba975f91d' Name=group-name,Values='eksctl-time-tracker-backend-cluster-nodegroup-EKS-public-workers-SG-*' --query 'SecurityGroups[*].{GroupName:GroupName,GroupId:GroupId}' | jq '.[].GroupId')"
 GROUP_ID=${GROUP_ID#'"'}
 GROUP_ID=${GROUP_ID%'"'}
 

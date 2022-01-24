@@ -10,6 +10,10 @@ kubectl delete -f eks-service.yaml
 
 kubectl delete -f eks-deployment.yaml
 
+kubectl delete -f eks-service-ms.yaml
+
+kubectl delete -f eks-deployment-ms.yaml
+
 aws cloudformation delete-stack --stack-name eksctl-time-tracker-backend-cluster-nodegroup-EKS-private-workers
 
 aws cloudformation delete-stack --stack-name eksctl-time-tracker-backend-cluster-nodegroup-EKS-public-workers
