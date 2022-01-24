@@ -28,7 +28,8 @@ public class TenantMaster {
     @DynamoDBAttribute
     private String organizationName;
 
-    @DynamoDBTypeConvertedJson
+    @DynamoDBTypeConverted(converter = CreditCardInformationConverter.class)
+    @DynamoDBAttribute
     private CreditCardInformation creditCardInformation;
 
     @DynamoDBAttribute

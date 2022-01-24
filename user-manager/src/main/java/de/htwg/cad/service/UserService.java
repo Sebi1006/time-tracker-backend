@@ -3,10 +3,7 @@ package de.htwg.cad.service;
 import com.amazonaws.services.cognitoidp.model.AdminSetUserPasswordResult;
 import com.amazonaws.services.cognitoidp.model.UpdateUserAttributesResult;
 import com.amazonaws.services.cognitoidp.model.UserType;
-import de.htwg.cad.domain.request.Login;
-import de.htwg.cad.domain.request.UserAttributesUpdate;
-import de.htwg.cad.domain.request.UserPasswordUpdate;
-import de.htwg.cad.domain.request.UserSignUp;
+import de.htwg.cad.domain.request.*;
 import de.htwg.cad.domain.response.SuccessResponse;
 
 import javax.validation.constraints.NotNull;
@@ -53,4 +50,16 @@ public interface UserService {
      * @return String
      */
     String getOrganizationName();
+
+    /**
+     * @param registerPremium user and tenant info
+     * @return String
+     */
+    String registerPremium(RegisterPremium registerPremium);
+
+    /**
+     * @param registerEnterprise user and tenant info
+     * @return String
+     */
+    String registerEnterprise(RegisterEnterprise registerEnterprise);
 }
