@@ -25,7 +25,6 @@ public class TenantInterceptor implements WebRequestInterceptor {
                 log.info("Tenant header get: {}", tenantId);
             } else {
                 log.error("Tenant header not found.");
-                throw new TenantNotFoundException("Tenant header not found.");
             }
         }
     }
