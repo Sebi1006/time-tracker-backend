@@ -4,12 +4,12 @@
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::179849223048:oidc-provider/oidc.eks.eu-central-1.amazonaws.com/id/B2EEA6C36766B561D2870F8DDAB669EC"
+        "Federated": "arn:aws:iam::179849223048:oidc-provider/oidc.eks.eu-central-1.amazonaws.com/id/D5EF32A02F661A536D3812A223CD324C"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.eu-central-1.amazonaws.com/id/B2EEA6C36766B561D2870F8DDAB669EC:sub": "system:serviceaccount:kube-system:alb-ingress-controller"
+          "oidc.eks.eu-central-1.amazonaws.com/id/D5EF32A02F661A536D3812A223CD324C:sub": "system:serviceaccount:kube-system:alb-ingress-controller"
         }
       }
     }

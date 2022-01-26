@@ -15,13 +15,13 @@ kubectl apply -f eks-deployment-ms.yaml
 echo "Step 3b: Microservice Service"
 kubectl apply -f eks-service-ms.yaml
 
-GROUP_ID="$(aws ec2 describe-security-groups --filters Name=vpc-id,Values='vpc-0f02b2b3ba975f91d' Name=group-name,Values='eksctl-time-tracker-backend-cluster-nodegroup-EKS-public-workers-SG-*' --query 'SecurityGroups[*].{GroupName:GroupName,GroupId:GroupId}' | jq '.[].GroupId')"
+GROUP_ID="$(aws ec2 describe-security-groups --filters Name=vpc-id,Values='vpc-0f6daeb4ad1c716ea' Name=group-name,Values='eksctl-time-tracker-backend-cluster-nodegroup-EKS-public-workers-SG-*' --query 'SecurityGroups[*].{GroupName:GroupName,GroupId:GroupId}' | jq '.[].GroupId')"
 GROUP_ID=${GROUP_ID#'"'}
 GROUP_ID=${GROUP_ID%'"'}
 
 aws ec2 authorize-security-group-ingress --group-id $GROUP_ID --protocol tcp --port 31479 --cidr 0.0.0.0/0
 
-#aws iam create-policy --policy-name ALBIngressControllerIAMPolicy --policy-document file://iam-policy.json
+aws iam create-policy --policy-name ALBIngressControllerIAMPolicy --policy-document file://iam-policy.json
 
 echo "Step 4: RBAC Role"
 kubectl apply -f rbac-role-alb-ingress-controller.yaml
