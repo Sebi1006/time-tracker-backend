@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: time-tracker-microservice-deployment
+  namespace: default
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: time-tracker-microservice
+  template:
+    metadata:
+      labels:
+        app: time-tracker-microservice
+    spec:
+      containers:
+        - name: back-end
+          image: 179849223048.dkr.ecr.eu-central-1.amazonaws.com/time-tracker-microservice:1
+          ports:
+            - containerPort: 8082
