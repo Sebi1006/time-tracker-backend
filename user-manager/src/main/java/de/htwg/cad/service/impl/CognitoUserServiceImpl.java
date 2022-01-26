@@ -323,8 +323,10 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return "https://main." + domain;
         } catch (CognitoIdentityProviderException e) {
+            log.error(e.awsErrorDetails().errorMessage());
             return e.awsErrorDetails().errorMessage();
         } catch (InterruptedException e) {
+            log.error(e.getMessage());
             return e.getMessage();
         }
     }
@@ -563,8 +565,10 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return "https://main." + domain;
         } catch (CognitoIdentityProviderException e) {
+            log.error(e.awsErrorDetails().errorMessage());
             return e.awsErrorDetails().errorMessage();
         } catch (InterruptedException e) {
+            log.error(e.getMessage());
             return e.getMessage();
         }
     }
@@ -616,8 +620,10 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return createUserResult.getUser();
         } catch (com.amazonaws.services.cognitoidp.model.UsernameExistsException e) {
+            log.error("User name already exists.");
             throw new UsernameExistsException("User name already exists.");
         } catch (com.amazonaws.services.cognitoidp.model.InvalidPasswordException e) {
+            log.error("Invalid password.");
             throw new InvalidPasswordException("Invalid password.");
         }
     }
@@ -630,6 +636,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
         try {
             return awsCognitoIdentityProvider.globalSignOut(new GlobalSignOutRequest().withAccessToken(accessToken));
         } catch (NotAuthorizedException e) {
+            log.error(String.format("Logout failed: %s", e.getErrorMessage()), e);
             throw new FailedAuthenticationException(String.format("Logout failed: %s", e.getErrorMessage()), e);
         }
     }
@@ -647,6 +654,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
                     .withUsername(username);
             awsCognitoIdentityProvider.adminAddUserToGroup(addUserToGroupRequest);
         } catch (com.amazonaws.services.cognitoidp.model.InvalidPasswordException e) {
+            log.error(String.format("Invalid parameter: %s", e.getErrorMessage()), e);
             throw new FailedAuthenticationException(String.format("Invalid parameter: %s", e.getErrorMessage()), e);
         }
     }
@@ -690,6 +698,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return awsCognitoIdentityProvider.updateUserAttributes(updateUserAttributesRequest);
         } catch (NotAuthorizedException e) {
+            log.error("User is not authenticated: " + e.getErrorMessage());
             throw new NotAuthorizedException("User is not authenticated: " + e.getErrorMessage());
         }
     }
@@ -711,9 +720,11 @@ public class CognitoUserServiceImpl implements CognitoUserService {
         try {
             return Optional.of(awsCognitoIdentityProvider.adminInitiateAuth(request));
         } catch (NotAuthorizedException e) {
+            log.error(String.format("Authenticate failed: %s", e.getErrorMessage()), e);
             throw new FailedAuthenticationException(String.format("Authenticate failed: %s", e.getErrorMessage()), e);
         } catch (UserNotFoundException e) {
             String username = request.getAuthParameters().get(CognitoAttributesEnum.USERNAME.name());
+            log.error(String.format("User name %s not found.", username), e);
             throw new de.htwg.cad.exceptions.UserNotFoundException(String.format("User name %s not found.", username), e);
         }
     }
@@ -729,6 +740,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
 
             return awsCognitoIdentityProvider.adminSetUserPassword(adminSetUserPasswordRequest);
         } catch (com.amazonaws.services.cognitoidp.model.InvalidPasswordException e) {
+            log.error(String.format("Invalid parameter: %s", e.getErrorMessage()), e);
             throw new FailedAuthenticationException(String.format("Invalid parameter: %s", e.getErrorMessage()), e);
         }
     }
@@ -747,6 +759,7 @@ public class CognitoUserServiceImpl implements CognitoUserService {
             byte[] rawHmac = mac.doFinal(userPoolClientId.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(rawHmac);
         } catch (Exception e) {
+            log.error("Error while calculating.");
             throw new ServiceException("Error while calculating.");
         }
     }

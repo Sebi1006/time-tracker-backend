@@ -13,3 +13,9 @@ spring:
     name: aws-cognito-multitenancy
   main:
     allow-bean-definition-overriding: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

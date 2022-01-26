@@ -27,7 +27,7 @@ public class TenantContext {
     private static final ThreadLocal<String> CONTEXT = new ThreadLocal<>();
 
     public static void setTenantId(String tenantId) {
-        log.debug("Setting tenantId to " + tenantId);
+        log.debug("Setting tenant id to " + tenantId);
         CONTEXT.set(tenantId);
     }
 

@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
                     .poolId(tenantMaster.get().getUserPoolId())
                     .build();
         } else {
+            log.error("Tenant data not found or not activated.");
             throw new TenantNotFoundException("Tenant data not found or not activated.");
         }
     }
@@ -133,6 +134,7 @@ public class UserServiceImpl implements UserService {
         if (tenantMaster.isPresent()) {
             return tenantMaster.get().getOrganizationName();
         } else {
+            log.error("Tenant data not found or not activated.");
             throw new TenantNotFoundException("Tenant data not found or not activated.");
         }
     }
