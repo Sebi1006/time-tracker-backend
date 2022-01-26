@@ -9,5 +9,5 @@ spec:
   selector:
     app: time-tracker-microservice
   ports:
-    -  port: 8082 # port of this service (cluster members talk via this port)
-       targetPort: 8082 # where container is actually running
+    - port: 8082 # port of this service (cluster members talk via this port)
+      targetPort: 8082 # where container is actually running
